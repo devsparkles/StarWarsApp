@@ -1,6 +1,7 @@
 package com.devsparkle.starwarsapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 /**
  *
@@ -9,7 +10,7 @@ data class PeopleResponse(
     @SerializedName("birth_year")
     val birthYear: String,
     @SerializedName("created")
-    val created: String,
+    val created: Date,
     @SerializedName("edited")
     val edited: String,
     @SerializedName("eye_color")

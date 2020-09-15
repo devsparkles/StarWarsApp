@@ -36,6 +36,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -54,7 +55,7 @@ dependencies {
     // test
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    testImplementation 'org.mockito:mockito-core:3.1.0'
+    testImplementation 'org.mockito:mockito-core:3.2.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
@@ -63,6 +64,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
 
     def okhttp_version = "4.9.0"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
@@ -78,14 +80,14 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     // kotlin coroutines
-    def coroutines_android_version = '1.3.7'
+    def coroutines_android_version = '1.3.9'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
 
     // hilt - dependency injection
-    implementation 'com.google.dagger:hilt-android:2.28.1-alpha'
+    implementation 'com.google.dagger:hilt-android:2.29.1-alpha'
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
-    kapt 'com.google.dagger:hilt-android-compiler:2.28.1-alpha'
+    kapt 'com.google.dagger:hilt-android-compiler:2.29.1-alpha'
     kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
 
     // room - orm, model, database
@@ -108,7 +110,7 @@ dependencies {
     // timber - logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    // stetho - for rest logging
+    // facebook stetho - for rest logging
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 
     // rxJava3 for the future when room moves to from 2 to 3
@@ -118,4 +120,14 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.2.19"
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+
+    // facebook way to detect the connectivity situation of the device
+    implementation 'com.facebook.network.connectionclass:connectionclass:1.0.1'
+
+    implementation 'com.airbnb.android:lottie:3.1.0'
+
+
+    implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.8'
+
 }

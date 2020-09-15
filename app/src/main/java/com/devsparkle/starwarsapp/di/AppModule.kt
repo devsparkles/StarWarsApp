@@ -1,7 +1,9 @@
 package com.devsparkle.starwarsapp.di
 
 import android.content.Context
+import com.devsparkle.starwarsapp.BuildConfig
 import com.devsparkle.starwarsapp.data.local.AppDatabase
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -9,8 +11,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -21,12 +29,43 @@ import javax.inject.Singleton
 object AppModule {
 
 
-    @Singleton
+
     @Provides
-    fun provideRetrofit(gson: Gson): Retrofit = Retrofit.Builder()
-        .baseUrl("http://swapi.dev/api/")
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
+    fun provideOkHttpBuilder(): OkHttpClient.Builder {
+        val okHttpBuilder = OkHttpClient.Builder()
+        // debug interceptor like Stetho and http logging interceptor
+        if (BuildConfig.DEBUG) {
+            val logging = HttpLoggingInterceptor()
+            logging.level = HttpLoggingInterceptor.Level.BODY
+            okHttpBuilder.addInterceptor(logging)
+            okHttpBuilder.addNetworkInterceptor(StethoInterceptor())
+        }
+        return okHttpBuilder.apply {
+            readTimeout(5, TimeUnit.MINUTES)
+            connectTimeout(5, TimeUnit.MINUTES)
+            writeTimeout(5, TimeUnit.MINUTES)
+            callTimeout(5, TimeUnit.MINUTES)
+        }
+    }
+
+
+    @Provides
+    fun provideRetrofitBuilder(gson: Gson): Retrofit.Builder {
+        return Retrofit.Builder()
+
+            .addConverterFactory(ScalarsConverterFactory.create()) // to allow to get or post scalar type like String for example directly
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    }
+
+
+    @Provides
+    fun provideBaseRetrofit(retrofitBuilder: Retrofit.Builder, client: OkHttpClient.Builder
+    ): Retrofit {
+        return retrofitBuilder
+            .client(client.build()) .baseUrl("https://swapi.dev/api/")
+            .build()
+    }
 
     @Provides
     @Singleton

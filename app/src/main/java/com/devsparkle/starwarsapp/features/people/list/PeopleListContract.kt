@@ -1,19 +1,51 @@
 package com.devsparkle.starwarsapp.features.people.list
 
+import com.devsparkle.starwarsapp.domain.model.PeopleDTO
 
 
 interface PeopleListContract {
 
-    interface View  {
+    interface View {
 
-        fun showPeoples()
+        /***
+         *
+         */
+        fun showPeoples(list: List<PeopleDTO>)
+
+        /**
+         *
+         */
+        fun showError(message: String)
+
+        /***
+         *
+         */
+        fun hideLoading()
+
+        /***
+         *
+         */
+        fun showLoading()
+
+        /***
+         *
+         */
+        fun showNotConnected()
+
+        /***
+         *
+         */
+        fun proposeRetryFetchPeople()
+
+
 
     }
 
-    interface Presenter  {
+    interface Presenter {
 
-        fun retryPeoples()
-
+        /***
+         * Get list of peoples
+         */
         fun fetchPeoples()
     }
 

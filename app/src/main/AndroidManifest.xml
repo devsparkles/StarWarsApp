@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".features.people.list.PeopleListActivity">
+        <activity android:name=".features.people.list.PeopleListActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".features.people.detail.PeopleDetailActivity" />
+        <activity android:name=".features.people.detail.PeopleDetailActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

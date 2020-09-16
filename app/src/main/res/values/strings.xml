@@ -8,5 +8,9 @@
 
 
     <string name="not_connected">Not connected</string>
-    <string name="retry">Retry</string>
+    <string name="retry">Try Again</string>
+
+
+    <string name="people_mass">%1$s kg</string>
+    <string name="people_height">%1$s cm</string>
 </resources>

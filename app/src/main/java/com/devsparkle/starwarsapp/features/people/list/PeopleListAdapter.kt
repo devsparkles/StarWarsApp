@@ -1,5 +1,6 @@
 package com.devsparkle.starwarsapp.features.people.list
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.devsparkle.starwarsapp.R
 import com.devsparkle.starwarsapp.domain.model.PeopleDTO
+import com.devsparkle.starwarsapp.features.people.detail.PeopleDetailActivity
+import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.list_item_people.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class PeopleListAdapter constructor(
     private val mDataset: MutableList<PeopleDTO>
@@ -25,18 +26,13 @@ class PeopleListAdapter constructor(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val people = mDataset[position]
 
-
         holder.mName.text = people.name
-        holder.mPeopleHeight.text = people.height + " cm"
-        holder.mMass.text = people.mass + " kg"
-
-        val pattern = "yyyy-MM-dd"
-        val simpleDateFormat = SimpleDateFormat(pattern)
-        if(people.created is Date){
-            val date: String = simpleDateFormat.format(people.created)
-            holder.mCreated.text =date
-
+        holder.mCardView.setOnClickListener { v ->
+            val intent = Intent(v.context, PeopleDetailActivity::class.java)
+            intent.putExtra("people", people)
+            v.context.startActivity(intent)
         }
+
 
 
         with(holder.mView) {
@@ -44,7 +40,7 @@ class PeopleListAdapter constructor(
         }
     }
 
-    fun setPeoples(list: List<PeopleDTO>){
+    fun setPeoples(list: List<PeopleDTO>) {
         mDataset.clear()
         mDataset.addAll(list)
     }
@@ -54,9 +50,7 @@ class PeopleListAdapter constructor(
     }
 
     class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mName: TextView = mView.people_name
-        val mPeopleHeight: TextView = mView.people_height
-        val mMass: TextView = mView.people_mass
-        val mCreated: TextView = mView.people_created
+        val mName: TextView = mView.name
+        val mCardView: MaterialCardView = mView.materialCardRow
     }
 }

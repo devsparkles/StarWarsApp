@@ -1,5 +1,4 @@
-package com.devsparkle.starwarsapp.di.features.people.list
-
+package com.devsparkle.starwarsapp.di.activities
 
 import android.app.Activity
 import com.devsparkle.starwarsapp.data.local.AppDatabase
@@ -8,6 +7,9 @@ import com.devsparkle.starwarsapp.data.remote.PeopleService
 import com.devsparkle.starwarsapp.data.repository.remote.PeopleRemoteRepository
 import com.devsparkle.starwarsapp.domain.interactor.PeopleInteractor
 import com.devsparkle.starwarsapp.domain.repository.IPeopleRemoteRepository
+import com.devsparkle.starwarsapp.features.people.detail.PeopleDetailActivity
+import com.devsparkle.starwarsapp.features.people.detail.PeopleDetailContract
+import com.devsparkle.starwarsapp.features.people.detail.PeopleDetailPresenter
 import com.devsparkle.starwarsapp.features.people.list.PeopleListActivity
 import com.devsparkle.starwarsapp.features.people.list.PeopleListContract
 import com.devsparkle.starwarsapp.features.people.list.PeopleListPresenter
@@ -20,13 +22,20 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ActivityComponent::class)
-abstract class PeopleListModule {
+abstract class ActivitiesModule {
 
     @Binds
-    abstract fun bindActivity(activity: PeopleListActivity): PeopleListContract.View
+    abstract fun bindPeopleListActivity(activity: PeopleListActivity): PeopleListContract.View
 
     @Binds
-    abstract fun bindPresenter(impl: PeopleListPresenter): PeopleListContract.Presenter
+    abstract fun bindPeopleListPresenter(impl: PeopleListPresenter): PeopleListContract.Presenter
+
+
+    @Binds
+    abstract fun bindPeopleDetailActivity(activity: PeopleDetailActivity): PeopleDetailContract.View
+
+    @Binds
+    abstract fun bindPeopleDetailPresenter(impl: PeopleDetailPresenter): PeopleDetailContract.Presenter
 
 }
 
@@ -36,8 +45,13 @@ abstract class PeopleListModule {
 object MainActivityModule {
 
     @Provides
-    fun bindActivity(activity: Activity): PeopleListActivity {
+    fun bindPeopleListActivity(activity: Activity): PeopleListActivity {
         return activity as PeopleListActivity
+    }
+
+    @Provides
+    fun bindPeopleDetailActivity(activity: Activity): PeopleDetailActivity {
+        return activity as PeopleDetailActivity
     }
 }
 
@@ -76,3 +90,4 @@ object PeoplePresenterModule {
 
 
 }
+

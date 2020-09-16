@@ -41,6 +41,11 @@ class PeopleListActivity : AppCompatActivity(), PeopleListContract.View {
 
     }
 
+    interface OnListFragmentInteractionListener {
+        // TODO: Update argument type and name
+        fun onListFragmentInteraction(productDisplayDTO: PeopleDTO)
+    }
+
 
     override fun showPeoples(list: List<PeopleDTO>) {
         propose_retry.visibility = View.GONE

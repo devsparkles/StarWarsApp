@@ -31,6 +31,7 @@ class PeopleDetailActivity : AppCompatActivity(), PeopleDetailContract.View {
 
         val people = intent.extras?.getParcelable<PeopleDTO>("people")
         people?.let {
+            // the view handle the look and feel of the datas
             people_detail_toolbar.title = it.name
             people_name.text = it.name
             people_height.text = getString(R.string.people_mass, it.height)

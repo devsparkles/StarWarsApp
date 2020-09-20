@@ -39,6 +39,11 @@ class PeopleListActivity : AppCompatActivity(), PeopleListContract.View {
             presenter.fetchPeoples()
         }
 
+
+        swipe_to_refresh.setOnRefreshListener {
+            presenter.refreshPeoples()
+        }
+
     }
 
     interface OnListFragmentInteractionListener {
@@ -65,6 +70,7 @@ class PeopleListActivity : AppCompatActivity(), PeopleListContract.View {
         propose_retry.visibility = View.GONE
         people_list.visibility = View.VISIBLE
         progress_bar.visibility = View.GONE
+        swipe_to_refresh.isRefreshing = false
     }
 
     override fun showLoading() {

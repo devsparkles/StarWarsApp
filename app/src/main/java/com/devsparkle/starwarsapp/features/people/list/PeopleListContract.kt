@@ -47,6 +47,11 @@ interface PeopleListContract {
          * Get list of peoples
          */
         fun fetchPeoples()
+
+        /**
+         * Refresh people via swipe to refresh
+         */
+        fun refreshPeoples()
     }
 
 

@@ -41,10 +41,10 @@ object AppModule {
             okHttpBuilder.addNetworkInterceptor(StethoInterceptor())
         }
         return okHttpBuilder.apply {
-            readTimeout(5, TimeUnit.MINUTES)
-            connectTimeout(5, TimeUnit.MINUTES)
-            writeTimeout(5, TimeUnit.MINUTES)
-            callTimeout(5, TimeUnit.MINUTES)
+            readTimeout(10, TimeUnit.SECONDS)
+            connectTimeout(10, TimeUnit.SECONDS)
+            writeTimeout(10, TimeUnit.SECONDS)
+            callTimeout(10, TimeUnit.SECONDS)
         }
     }
 

@@ -1,4 +1,4 @@
-package com.devsparkle.starwarsapp.di.qualifier
+package com.devsparkle.starwarsapp.di.qualifiers
 
 import javax.inject.Qualifier
 
